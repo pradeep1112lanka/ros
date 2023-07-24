@@ -4,15 +4,15 @@ from turtlesim.msg import Pose
 from geometry_msgs.msg import Twist
 from turtlesim.srv import SetPen
 
-previous_x = 0
-def call_set_pen_Service(r ,g ,b ,width ,off):
-    try:
+previous_x = 0    #defining a global variable
+def call_set_pen_Service(r ,g ,b ,width ,off):  #defining a function to set colour thickness of the line drawn by turtle
+    try: 
         set_pen = rospy.ServiceProxy("/turtle1/set_pen" , SetPen)
         response = set_pen(r,g,b,width,off)
     except rospy.ServiceException as e:
         rospy.logwarn(e)    
 
-def pose_callback(pose: Pose):
+def pose_callback(pose: Pose):    #function to move turle and change colout
     cmd = Twist()
     if pose.x > 9.0 or pose.x < 2.0 or pose.y > 9.0 or pose.y < 2.0 :
         cmd.linear.x =  1
